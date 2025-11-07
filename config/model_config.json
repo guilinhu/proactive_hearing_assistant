@@ -1,0 +1,92 @@
+{
+    "project_name": "magic_hear",
+    "pl_module": "src.hl_module.joint_train_hl_module_new.PLModule",
+    "pl_module_args": {
+        "freeze_model1": false,
+        "metrics": [
+            "snr_i",
+            "si_snr_i",
+            "si_sdr_i"
+        ],
+        "model": "src.models.network.net_conversation_joint.Net_Conversation",
+        "model_params": {
+            "model1_block_name": "src.models.blocks.model1_block.GridNetBlock",
+            "num_layers_model1": 6,
+            "latent_dim_model1": 32,
+            "use_speaker_emb_model1": false,
+            "use_self_speech_model2": false,
+            "one_emb_model1": true,
+            "model1_block_params": {
+                "emb_ks": 2,
+                "emb_hs": 2,
+                "hidden_channels": 64,
+                "n_head": 4
+            },
+            "model2_block_name": "src.models.blocks.model2_block.GridNetBlock",
+            "num_layers_model2": 6,
+            "latent_dim_model2": 32,
+            "lstm_fold_chunk": 80,
+            "model2_block_params": {
+                "emb_ks": 1,
+                "emb_hs": 1,
+                "hidden_channels": 64,
+                "n_head": 4,
+                "use_attention": false
+            },
+            "stft_chunk_size": 200,
+            "stft_pad_size": 32,
+            "stft_back_pad": 32,
+            "num_input_channels": 1,
+            "num_output_channels": 1,
+            "num_sources": 1,
+            "use_sp_feats": false,
+            "use_first_ln": true,
+            "n_imics": 1,
+            "window": "rect",
+            "E": 2
+        },
+        "loss": "src.losses.SNRLP.SNRLPLoss",
+        "loss_params": {
+            "snr_loss_name": "snr",
+            "neg_weight": 100
+        },
+        "optimizer": "torch.optim.AdamW",
+        "optimizer_params": {
+            "lr": 2e-3
+        },
+        "scheduler": "torch.optim.lr_scheduler.ReduceLROnPlateau",
+        "scheduler_params": {
+            "mode": "min",
+            "patience": 4,
+            "factor": 0.5,
+            "min_lr": 1e-6
+        },
+        "sr": 16000,
+        "grad_clip": 1,
+        "use_dp": true
+    },
+    "train_dataset": "src.datasets.joint_training_dataset.Dataset",
+    "train_data_args": {
+        "input_dir": [],
+        "output_conversation": 1,
+        "batch_size": 4,
+        "clean_embed": true,
+        "random_audio_length": 160000,
+        "required_first_speaker_as_self_speech": true,
+        "spk_emb_exist": false
+    },
+    "val_dataset": "src.datasets.joint_training_dataset.Dataset",
+    "val_data_args": {
+        "input_dir": [],
+        "output_conversation": 1,
+        "batch_size": 4,
+        "clean_embed": true,
+        "random_audio_length": 160000,
+        "required_first_speaker_as_self_speech": true,
+        "spk_emb_exist": false
+    },
+    "epochs": 130,
+    "batch_size": 4,
+    "eval_batch_size": 4,
+    "num_workers": 12
+}
