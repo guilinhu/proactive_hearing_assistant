@@ -24,8 +24,11 @@ pip install -r requirements.txt
 To train the model, run:
 
 ```
-python src/train_joint.py --config <path to config> --run_dir <path to model checkpoint>
+python src/train_joint.py --config <path_to_config> --run_dir <path_to_model_checkpoint>
 ```
+
+To resume training, make sure that <path_to_model_checkpoint> points to the same directory used previously, and rerun the command above.
+
 
 ### 3. Model Evaluation
 
