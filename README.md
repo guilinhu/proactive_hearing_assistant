@@ -2,7 +2,7 @@
 
 ## More Information
 
-This is the model implementation for the paper **[MagicHearable: Real-Time Conversational Augmentation with a Hearable Device](https://www.arxiv.org/abs/2511.11473)**  
+This is the model implementation for the paper **[Proactive Hearing Assistants that Isolate Egocentric Conversations](https://www.arxiv.org/abs/2511.11473)**  
 *Hu et al., 2025*.
 
 For more information, please refer to our website: [https://proactivehearing.cs.washington.edu/](https://proactivehearing.cs.washington.edu/).
